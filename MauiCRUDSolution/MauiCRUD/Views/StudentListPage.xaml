@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiCRUD.Views.StudentListPage"
+             xmlns:viewmodel="clr-namespace:MauiCRUD.ViewModels"
+             x:DataType="viewmodel:StudentListPageViewModel"
+             xmlns:models="clr-namespace:MauiCRUD.Models"
+             
+             Title="StudentListPage">
+
+    <StackLayout Margin="10">
+        <VerticalStackLayout>
+            <Label Text="Student List" FontSize="28"/>
+
+            <Button Text="Add/Update Student" HeightRequest="40" Command="{Binding GotoAddUpdateStudentCommand}" Margin="0,0,0,20"/>
+            
+            <CollectionView ItemsSource="{Binding Students}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StudentModel">
+                        <StackLayout Margin="10" Spacing="15">
+                            <Frame Margin="0,0,0,10" Padding="10">
+                                <StackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="{Binding FirstName}" Margin="0,0,3,0" FontAttributes="Bold" FontSize="16"/>
+                                        <Label Text="{Binding LastName}" FontSize="16" FontAttributes="Bold"/>
+                                    </HorizontalStackLayout>
+                                    <VerticalStackLayout >
+                                        <Label Text="{Binding Email}" FontSize="10"/>
+                                    </VerticalStackLayout>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:StudentListPageViewModel}},
+                                        Path=DisplayActionCommand}" CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+        </VerticalStackLayout>
+    </StackLayout>
+</ContentPage>

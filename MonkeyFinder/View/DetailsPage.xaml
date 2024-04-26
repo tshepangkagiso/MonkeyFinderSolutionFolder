@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MonkeyFinder.View.DetailsPage"
+             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+             x:DataType="viewmodel:MonkeyDetailsViewModel"
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Monkey.Name}">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="#FFC107" StatusBarStyle="Default" />
+        <toolkit:StatusBarBehavior StatusBarColor="#FFC107" StatusBarStyle="DarkContent" />
+        <toolkit:StatusBarBehavior StatusBarColor="#FFC107" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="160,Auto">
+                <BoxView BackgroundColor="{StaticResource Primary}"
+                         Grid.ColumnSpan="3" HeightRequest="160" HorizontalOptions="FillAndExpand"/>
+                <Frame Grid.Column="1" Grid.RowSpan="2" HeightRequest="160" WidthRequest="160" CornerRadius="80" Margin="0,80,0,0"
+                       HorizontalOptions="Center" IsClippedToBounds="True" Padding="0">
+                    <Image Source="{Binding Monkey.Image}" Aspect="AspectFill" HeightRequest="160" WidthRequest="160" HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Frame>
+            </Grid>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button Text="Open Map" 
+                        Command="{Binding GoBackCommand}"
+                        Style="{StaticResource ButtonOutline}"
+                        Margin="8"
+                        VerticalOptions="Center" HorizontalOptions="StartAndExpand" 
+                        HeightRequest="40" WidthRequest="160"/>
+                
+                <Button Text="Return"
+                        x:Name="btnReturn"
+                        Clicked="btnReturn_Clicked"
+                        Style="{StaticResource ButtonOutline}"
+                        Margin="8"
+                        VerticalOptions="Center" HorizontalOptions="EndAndExpand" 
+                        HeightRequest="40" WidthRequest="160"/>
+            </HorizontalStackLayout>
+            
+            <VerticalStackLayout Padding="10" Spacing="10">
+                <Label Text="{Binding Monkey.Name}" Style="{StaticResource BaseLabel}" HorizontalOptions="Center"/>
+                <Label Text="{Binding Monkey.Details}" Style="{StaticResource MediumLabel}" HorizontalOptions="Center"/>
+                <Label Text="{Binding Monkey.Location,StringFormat='Location: {0}'} " Style="{StaticResource SmallLabel}"  HorizontalOptions="Center"/>
+                <Label Text="{Binding Monkey.Population, StringFormat='Population: {0}'}" Style="{StaticResource SmallLabel}"  HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+            <BoxView BackgroundColor="{StaticResource Primary}" HeightRequest="300" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
